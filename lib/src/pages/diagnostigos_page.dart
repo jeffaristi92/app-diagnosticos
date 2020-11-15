@@ -1,31 +1,97 @@
 import 'package:flutter/material.dart';
 
-class DiagnosticosPage extends StatefulWidget {
-  @override
-  _DiagnosticosPageState createState() => _DiagnosticosPageState();
-}
+import 'package:app_diagnosticos/src/providers/diagnosticos_provider.dart';
 
-class _DiagnosticosPageState extends State<DiagnosticosPage> {
+class DiagnosticosPage extends StatelessWidget {
+  final peliculasProvider = new DiagnosticosProvider();
   @override
+  
   Widget build(BuildContext context) {
-    return Container(
-      child: ListView(
-        children: _listadoDaignosticos(),
-      ),
+
+
+
+    peliculasProvider.getPopular();
+
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('Peliculas en cines'),
+          backgroundColor: Colors.indigoAccent,
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                showSearch(
+                  context: context, 
+                  delegate: DataSearch(),
+                );
+              },
+            )
+          ],
+        ),
+        body: Container(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              _swiperTarjetas(),
+              _footer(context),
+            ],
+          ),
+        ));
+  }
+
+  Widget _swiperTarjetas() {
+    return FutureBuilder(
+      future: peliculasProvider.getEnCines(),
+      builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
+        
+        if(snapshot.hasData){
+
+        
+        return CardSwiper(
+          peliculas: snapshot.data,
+        );
+        }else{
+          return Container(
+            height: 400.0,
+            child: Center(
+              child: CircularProgressIndicator()
+            )
+          );
+        }
+      },
     );
   }
 
-  List<Widget> _listadoDaignosticos() {
-    List<Widget> diagnosticos = new List<Widget>();
+  
+  Widget _footer(BuildContext context){
 
-    diagnosticos.add(ListTile(
-      title: Text('Diagnosticos'),
-      leading: Icon(Icons.assignment),
-      onTap: () {
-        Navigator.pushNamed(context, 'examen');
-      },
-    ));
+    return Container(
+      width: double.infinity,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.only(left: 20.0),
+            child: Text('Populares', style: Theme.of(context).textTheme.subhead,)
+          ),
+          SizedBox(height: 5.0,),
+          StreamBuilder(
+            stream: peliculasProvider.popularesStream,
+            builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
+              
+              if(snapshot.hasData){
+                return MovieHorizontal(
+                  peliculas: snapshot.data,
+                  siguientePagina: peliculasProvider.getPopular,
+                );
+              }else{
+                return Center(child: CircularProgressIndicator());
+              }
+            },
+          ),
+      ],),
+    );
 
-    return diagnosticos;
   }
+
 }
