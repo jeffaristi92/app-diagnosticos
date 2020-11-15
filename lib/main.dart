@@ -1,3 +1,4 @@
+import 'package:app_diagnosticos/src/pages/diagnostigos_page.dart';
 import 'package:app_diagnosticos/src/pages/examen_page.dart';
 import 'package:app_diagnosticos/src/pages/home_page.dart';
 import 'package:app_diagnosticos/src/pages/login_page.dart';
@@ -14,7 +15,8 @@ class DiagnosticosApp extends StatelessWidget {
       initialRoute: 'home',
       routes: {
         'home': (BuildContext context) => LoginPage(),
-        'examen': (BuildContext context) => ExamenPage()
+        'examen': (BuildContext context) => ExamenPage(),
+        'diagnosticos': (BuildContext context) => DiagnosticosPage(),
       },
       theme: ThemeData(primaryColor: Colors.blue),
     );
