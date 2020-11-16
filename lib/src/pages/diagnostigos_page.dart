@@ -20,10 +20,10 @@ class DiagnosticosPage extends StatelessWidget {
             IconButton(
               icon: Icon(Icons.search),
               onPressed: () {
-                showSearch(
-                  context: context, 
-                  delegate: DataSearch(),
-                );
+                // showSearch(
+                //   context: context, 
+                //   delegate: DataSearch(),
+                // );
               },
             )
           ],
@@ -44,20 +44,20 @@ class DiagnosticosPage extends StatelessWidget {
       future: peliculasProvider.getEnCines(),
       builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
         
-        if(snapshot.hasData){
+        // if(snapshot.hasData){
 
         
-        return CardSwiper(
-          peliculas: snapshot.data,
-        );
-        }else{
+        // return CardSwiper(
+        //   peliculas: snapshot.data,
+        // );
+        // }else{
           return Container(
             height: 400.0,
             child: Center(
               child: CircularProgressIndicator()
             )
           );
-        }
+        // }
       },
     );
   }
@@ -79,14 +79,14 @@ class DiagnosticosPage extends StatelessWidget {
             stream: peliculasProvider.popularesStream,
             builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
               
-              if(snapshot.hasData){
-                return MovieHorizontal(
-                  peliculas: snapshot.data,
-                  siguientePagina: peliculasProvider.getPopular,
-                );
-              }else{
+              // if(snapshot.hasData){
+              //   return MovieHorizontal(
+              //     peliculas: snapshot.data,
+              //     siguientePagina: peliculasProvider.getPopular,
+              //   );
+              // }else{
                 return Center(child: CircularProgressIndicator());
-              }
+              // }
             },
           ),
       ],),
