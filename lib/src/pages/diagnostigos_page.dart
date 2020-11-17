@@ -45,22 +45,21 @@ class DiagnosticosPage extends StatelessWidget {
     final _screenSize = MediaQuery.of(context).size;
 
     return FutureBuilder(
-      future: diganosticosProvider.getdiagnosticos(),
-      builder:
-          (BuildContext context, AsyncSnapshot<List<Diagnostico>> snapshot) {
-        if (snapshot.hasData) {
-          return Container(
-              height: _screenSize.height * 0.8,
-              child: ListView(
-                children: _diagnosticos(context, snapshot.data),
-              ));
-        } else {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-      },
-    );
+        future: diganosticosProvider.getdiagnosticos(),
+        builder:
+            (BuildContext context, AsyncSnapshot<List<Diagnostico>> snapshot) {
+          if (snapshot.hasData) {
+            return Container(
+                height: _screenSize.height * 0.8,
+                child: ListView(
+                  children: _diagnosticos(context, snapshot.data),
+                ));
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        });
   }
 
   _diagnosticos(BuildContext context, List<Diagnostico> diagnosticos) {

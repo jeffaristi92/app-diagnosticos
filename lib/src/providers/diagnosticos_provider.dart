@@ -37,4 +37,49 @@ class DiagnosticosProvider {
     final diagnosticos = new Diagnosticos.fromJsonList(decodedData['items']);
     return diagnosticos.items;
   }
+
+  Future<DiagnosticoResponse> getPrediction(Diagnostico diagnostico) async {
+    DiagnosticoResponse response = new DiagnosticoResponse();
+    final msg = jsonEncode(diagnostico.toJsonCreate());
+
+    final resp = await http.post(
+        'https://tb-prediction-api.azurewebsites.net/api/tests/prediction',
+        body: msg,
+        headers: {"Content-Type": "application/json"});
+
+    if (resp.statusCode == 200) {
+      final decodedData = json.decode(resp.body);
+      response.result = decodedData;
+      response.success = true;
+      return response;
+    }
+
+    response.success = false;
+    return response;
+  }
+
+  Future<bool> guardarDiagnostico(Diagnostico diagnostico) async {
+    final msg = jsonEncode(diagnostico.toJsonCreate());
+
+    final resp = await http.post(
+        'https://tb-prediction-api.azurewebsites.net/api/tests',
+        body: msg,
+        headers: {"Content-Type": "application/json"});
+
+    if (resp.statusCode == 200) {
+      return true;
+    }
+
+    return false;
+  }
+}
+
+class DiagnosticoResponse {
+  DiagnosticoResponse({
+    this.result,
+    this.success,
+  });
+
+  bool result;
+  bool success;
 }

@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class Diagnosticos {
   List<Diagnostico> items = new List();
 
@@ -79,4 +81,47 @@ class Diagnostico {
     aprobadoPorMedico = json['aprobadoPorMedico'];
     paciente = json['paciente'];
   }
+
+  Map<String, dynamic> toJson() => {
+        "testId": testId,
+        "fecha": fecha,
+        "sexo": sexo,
+        "edad": edad,
+        "etnia": etnia,
+        "grupoPoblacional": grupoPoblacional,
+        "comorbilidad": comorbilidad,
+        "malnutricion": malnutricion,
+        "contactos": contactos,
+        "contactosSR": contactosSR,
+        "contactosSRExaminadosconBK": contactosSRExaminadosconBK,
+        "contactosMenores5Anios": contactosMenores5Anios,
+        "vihConfirmado": vihConfirmado,
+        "recibeTar": recibeTar,
+        "recibeTrimetoprim": recibeTrimetoprim,
+        "rDOBKDX": rDOBKDX,
+        "pacienteId": pacienteId,
+        "resultado": resultado,
+        "aprobadoPorMedico": aprobadoPorMedico,
+      };
+
+  Map<String, dynamic> toJsonCreate() => {
+        "testId": testId,
+        "fechaNacimiento":  DateFormat('yyyy-MM-dd').format(fecha),
+        "sexo": sexo,
+        "etnia": etnia,
+        "grupoPoblacional": grupoPoblacional,
+        "comorbilidad": comorbilidad,
+        "malnutricion": malnutricion,
+        "contactos": contactos,
+        "contactosSR": contactosSR,
+        "contactosSRExaminadosconBK": contactosSRExaminadosconBK,
+        "contactosMenores5Anios": contactosMenores5Anios,
+        "vihConfirmado": vihConfirmado,
+        "recibeTar": recibeTar,
+        "recibeTrimetoprim": recibeTrimetoprim,
+        "rDOBKDX": rDOBKDX,
+        "pacienteId": pacienteId,
+        "resultado": resultado,
+        "aprobadoPorMedico": aprobadoPorMedico,
+      };
 }
