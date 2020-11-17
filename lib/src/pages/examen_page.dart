@@ -343,6 +343,7 @@ class _ExamenPageState extends State<ExamenPage> {
             decoration: InputDecoration(labelText: 'Grupo Poblacional'),
             value: _grupoPoblacional,
             items: getOpcionesDropdown(_tiposGrupoPoblacional),
+            isExpanded: true,
             onChanged: (opt) {
               setState(() {
                 _grupoPoblacional = opt;

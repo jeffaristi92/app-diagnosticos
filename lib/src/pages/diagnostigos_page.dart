@@ -2,6 +2,7 @@ import 'package:app_diagnosticos/src/models/diagnostico_model.dart';
 import 'package:flutter/material.dart';
 
 import 'package:app_diagnosticos/src/providers/diagnosticos_provider.dart';
+import 'package:intl/intl.dart';
 
 class DiagnosticosPage extends StatelessWidget {
   final peliculasProvider = new DiagnosticosProvider();
@@ -80,7 +81,7 @@ class DiagnosticosPage extends StatelessWidget {
     return ListTile(
       leading: Icon(Icons.assessment),
       title: Text(nombre),
-      subtitle: Text(diagnostico.fecha.toString()),
+      subtitle: Text(DateFormat('dd-MM-yyyy').format(diagnostico.fecha)),
       onTap: () {
         //close(context, null);
         //Navigator.pushNamed(context, 'detalle', arguments: diagnostico);
