@@ -59,7 +59,7 @@ class Diagnostico {
 
   Diagnostico.fromJsonMap(Map<String, dynamic> json) {
     testId = json['testId'];
-    fecha = json['fecha'];
+    fecha = DateTime.parse(json['fecha']);
     sexo = json['sexo'];
     edad = json['edad'];
     etnia = json['etnia'];

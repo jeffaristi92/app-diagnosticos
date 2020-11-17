@@ -25,39 +25,16 @@ class DiagnosticosProvider {
     _popularesStreamController.close();
   }
 
-  Future<List<Diagnostico>> _procesarRespuesta(Uri url) async {
-    final resp = await http.get(url);
-    final decodedData = json.decode(resp.body);
-
-    final peliculas = new Diagnosticos.fromJsonList(decodedData['results']);
-
-    return peliculas.items;
-  }
-
-  Future<List<Diagnostico>> getEnCines() async {
-    final url = Uri.https(_url, '/tests');
+  Future<List<Diagnostico>> getdiagnosticos() async {
+    final url = _url + '/tests';
 
     return await _procesarRespuesta(url);
   }
 
-  Future<List<Diagnostico>> getPopular() async {
-    if (_cargando) return [];
-
-    _cargando = true;
-
-    _popularesPage++;
-
-    final url =
-        Uri.https(_url, '3/movie/popular', {'page': _popularesPage.toString()});
-
-    final resp = await _procesarRespuesta(url);
-
-    _populares.addAll(resp);
-
-    popularesSink(_populares);
-
-    _cargando = false;
-
-    return resp;
+  Future<List<Diagnostico>> _procesarRespuesta(String url) async {
+    final resp = await http.get(url);
+    final decodedData = json.decode(resp.body);
+    final diagnosticos = new Diagnosticos.fromJsonList(decodedData['items']);
+    return diagnosticos.items;
   }
 }

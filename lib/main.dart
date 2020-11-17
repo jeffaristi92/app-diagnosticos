@@ -12,7 +12,7 @@ class DiagnosticosApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Diagnosticos App',
-      initialRoute: 'home',
+      initialRoute: 'diagnosticos',
       routes: {
         'home': (BuildContext context) => LoginPage(),
         'examen': (BuildContext context) => ExamenPage(),
